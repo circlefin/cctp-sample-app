@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 200;
+    src: url(./fonts/Circular/CircularXXWeb-Thin.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 300;
+    src: url(./fonts/Circular/CircularXXWeb-Light.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 400;
+    src: url(./fonts/Circular/CircularXXWeb-Regular.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 500;
+    src: url(./fonts/Circular/CircularXXWeb-Book.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 600;
+    src: url(./fonts/Circular/CircularXXWeb-Medium.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 700;
+    src: url(./fonts/Circular/CircularXXWeb-Bold.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 800;
+    src: url(./fonts/Circular/CircularXXWeb-Black.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Circular';
+    font-weight: 900;
+    font-style: 'normal';
+    src: url(./fonts/Circular/CircularXXWeb-ExtraBlack.woff2) format('woff2');
+  }
+
+  body {
+    @apply bg-licorice-800 bg-gradient-radial from-licorice-600 to-licorice-800 text-white;
+  }
+
+  h1 {
+    @apply bg-gradient-to-r from-gumdrop-200 to-apple-200 bg-clip-text text-center text-6xl font-bold text-transparent;
+  }
+
+  h2 {
+    @apply bg-gradient-to-r from-gumdrop-200 to-apple-200 bg-clip-text text-center text-5xl font-bold text-transparent;
+  }
+}
+
+@layer utilities {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

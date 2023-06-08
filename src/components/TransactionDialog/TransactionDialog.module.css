@@ -1,0 +1,82 @@
+/* https://codepen.io/subluxed/pen/MWVdJZO?editors=1100 */
+@value diameter: 35vmax;
+
+.aurora {
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.aurora:before,
+.aurora:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 100%;
+  opacity: 0.18;
+}
+
+.aurora:before {
+  box-shadow: 0 0 diameter diameter red;
+  animation: hue 5s 0s linear infinite, move1 10s 0s linear infinite;
+}
+
+.aurora:after {
+  box-shadow: 0 0 diameter diameter cyan;
+  animation: hue 10s 0s linear infinite, move2 20s 0s linear infinite;
+}
+
+@keyframes hue {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes move1 {
+  0% {
+    top: 0;
+    left: 50%;
+  }
+  25% {
+    left: 0;
+  }
+  50% {
+    top: 100%;
+  }
+  75% {
+    left: 100%;
+  }
+  100% {
+    top: 0;
+    left: 50%;
+  }
+}
+
+@keyframes move2 {
+  0% {
+    top: 50%;
+    left: 100%;
+  }
+  25% {
+    top: 100%;
+  }
+  50% {
+    left: 0;
+  }
+  75% {
+    top: 0;
+  }
+  100% {
+    top: 50%;
+    left: 100%;
+  }
+}
