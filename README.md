@@ -25,23 +25,17 @@ Install npm dependencies
 yarn install
 ```
 
-Setup Typechain
-
-```
-typechain --target=ethers-v5 --out-dir src/typechain src/abis/*.json
-```
-
-This generates `typechain` folder under `src` containing contract types to be used by our hooks
-
 ## Running the app
 
-Run the development server:
+Run the sample app local:
 
 ```
 yarn start
 ```
 
-### Testing
+The sample app will now be running on: http://localhost:3000.
+
+## Testing
 
 Launch the test runner in interactive watch mode
 
@@ -55,18 +49,8 @@ Run tests with test converage.
 yarn test:unit:coverage
 ```
 
-### Build and deploy
+### Linting/Formatting/Type Checks
 
-Build the app into static bundle
+We use eslint, prettier and typescript to validate our code. In combination with husky and lint-staged, we run a check on every precommit on staged changes.
 
-```
-yarn build
-```
-
-To deploy, install and run `serve`
-
-```
-yarn global add serve serve -s build
-```
-
-See [deployment docs](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can also use `yarn check-all` or `yarn fix-all` to validate or fix all lint/format/typing issues. See [package.json](./package.json) for more details.
