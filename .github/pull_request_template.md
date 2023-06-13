@@ -8,6 +8,4 @@
 
 ---
 
-**Story:**
-
 **Requested Reviewers:** @mention
