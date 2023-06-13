@@ -1,13 +1,16 @@
 {
   "name": "cctp-sample-app",
   "version": "0.1.0",
+  "description": "CCTP Sample App",
+  "author": "Circle",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:stats": "yarn build --stats",
-    "typechain": "typechain --target=ethers-v5 --out-dir ./src/typechain ./src/abis/*.json",
     "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
+    "typechain": "typechain --target=ethers-v5 --out-dir ./src/typechain ./src/abis/*.json",
     "lint": "eslint --ext .js,.ts,.tsx --fix .",
     "format": "prettier --ignore-path .prettierignore --write .",
     "fix-all": "npm-run-all --parallel lint format",
