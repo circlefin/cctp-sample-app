@@ -6,7 +6,7 @@ A sample app used to demonstrate CCTP step by step capabilities on testnet. The 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Setup
+# Setup
 
 Install NVM
 
@@ -78,3 +78,13 @@ yarn global add serve serve -s build
 ```
 
 See [deployment docs](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+# Instructions
+
+## Setup Typechain
+
+```
+typechain --target=ethers-v5 --out-dir src/typechain src/abis/*.json
+```
+
+This generates `typechain` folder under `src` containing contract types to be used by our hooks
