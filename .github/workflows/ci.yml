@@ -3,14 +3,16 @@ on:
   pull_request:
 jobs:
   test:
-    name: "Test"
+    name: 'Test'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Install Node
+      - name: Install Node 16.x
         uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install Dependencies
         run: yarn install
