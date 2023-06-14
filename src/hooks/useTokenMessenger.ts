@@ -31,7 +31,7 @@ const useTokenMessenger = (chainId: SupportedChainId | undefined) => {
    * @param burnToken the address of token to burn
    */
   const depositForBurn = useCallback(
-    (
+    async (
       amount: BigNumber,
       destinationDomain: DestinationDomain,
       mintRecipient: string,
@@ -43,7 +43,7 @@ const useTokenMessenger = (chainId: SupportedChainId | undefined) => {
         library.getSigner()
       )
 
-      return contract
+      return await contract
         .depositForBurn(
           amount,
           destinationDomain,

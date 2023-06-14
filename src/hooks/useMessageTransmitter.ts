@@ -28,14 +28,14 @@ const useMessageTransmitter = (chainId: SupportedChainId | undefined) => {
    * @param signature the signature returned from attestation service by messageHash
    */
   const receiveMessage = useCallback(
-    (message: Bytes, signature: string) => {
+    async (message: Bytes, signature: string) => {
       if (!library) return
       const contract = MessageTransmitter__factory.connect(
         MESSAGE_TRANSMITTER_CONTRACT_ADDRESS,
         library.getSigner()
       )
 
-      return contract
+      return await contract
         .receiveMessage(message, signature)
         .then((response: TransactionResponse) => {
           return response

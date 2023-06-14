@@ -33,7 +33,7 @@ const ConnectWalletDialog: React.FC<Props> = ({
         />
       </DialogContent>
 
-      <IconButton className="absolute top-3 right-3" onClick={handleClose}>
+      <IconButton className="absolute right-3 top-3" onClick={handleClose}>
         <CloseIcon />
       </IconButton>
     </Dialog>

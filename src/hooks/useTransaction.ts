@@ -12,9 +12,9 @@ const useTransaction = () => {
    * @param transactionHash the amount to be deposit for burn on source chain
    */
   const getTransactionReceipt = useCallback(
-    (transactionHash: string) => {
+    async (transactionHash: string) => {
       return library != null
-        ? library
+        ? await library
             .getTransactionReceipt(transactionHash)
             .then((response: TransactionReceipt) => {
               return response
