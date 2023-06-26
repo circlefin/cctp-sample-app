@@ -18,6 +18,7 @@ export enum SupportedChainId {
 
 /**
  * List of all the chain/network IDs supported in hexadecimals
+ * TODO: Infer from SupportedChainId
  */
 export const SupportedChainIdHex = {
   ETH_GOERLI: '0x5',

@@ -15,7 +15,7 @@ import { formatUnits } from 'ethers/lib/utils'
 
 import { CHAIN_ICONS } from 'assets/chains'
 import NetworkAlert from 'components/NetworkAlert/NetworkAlert'
-import { Chain, CHAIN_TO_CHAIN_ID } from 'constants/chains'
+import { Chain, CHAIN_TO_CHAIN_ID, CHAIN_TO_CHAIN_NAME } from 'constants/chains'
 import { DEFAULT_DECIMALS } from 'constants/tokens'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { getUSDCContractAddress } from 'utils/addresses'
@@ -32,17 +32,17 @@ interface SelectItem {
 const CHAIN_SELECT_ITEMS: SelectItem[] = [
   {
     value: Chain.ETH,
-    label: 'Ethereum',
+    label: CHAIN_TO_CHAIN_NAME[Chain.ETH],
     icon: CHAIN_ICONS[Chain.ETH],
   },
   {
     value: Chain.AVAX,
-    label: 'Avalanche',
+    label: CHAIN_TO_CHAIN_NAME[Chain.AVAX],
     icon: CHAIN_ICONS[Chain.AVAX],
   },
   {
     value: Chain.ARB,
-    label: 'Arbitrum',
+    label: CHAIN_TO_CHAIN_NAME[Chain.ARB],
     icon: CHAIN_ICONS[Chain.ARB],
   },
 ]
