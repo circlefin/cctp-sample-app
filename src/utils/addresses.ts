@@ -1,4 +1,4 @@
-import * as testnet from 'constants/addresses/testnet'
+import * as testnet from 'constants/addresses'
 
 import type { SupportedChainId } from 'constants/chains'
 
