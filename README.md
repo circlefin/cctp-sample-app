@@ -89,7 +89,7 @@ We have two config files which will be need to be updated to add a new chain sup
 
 1. Add the chain enum and definitions
 
-- In `./src/constants/chains.ts`.ts, we need to add some enums and details for the chain to support. Add the new chain details to `Chain`, `SupportedChainId`, `SupportedChainIdHex`, `CHAIN_TO_CHAIN_ID`, `CHAIN_TO_CHAIN_NAME`, `DestinationDomain` and `CHAIN_ID_HEXES_TO_PARAMETERS`.
+- In `./src/constants/chains.ts`, we need to add some enums and details for the chain to support. Add the new chain details to `Chain`, `SupportedChainId`, `SupportedChainIdHex`, `CHAIN_TO_CHAIN_ID`, `CHAIN_TO_CHAIN_NAME`, `DestinationDomain` and `CHAIN_ID_HEXES_TO_PARAMETERS`.
 
 2. Add the addresses for the new chain
 
@@ -102,6 +102,22 @@ We have two config files which will be need to be updated to add a new chain sup
 4. Add the new chain to the form dropdown selector
 
 - In `./components/Send/SendForm.tsx`, Add the new chain to `CHAIN_SELECT_ITEMS` and this should automatically update the UI dropdown.
+
+## Configuration for Mainnet
+
+This sample app is development for testnet use, but if we want to update this for mainnet, these are the steps needed.
+
+1. Update the chain definitions to mainnet
+
+- In `./src/constants/chains.ts`, update the `SupportedChainId`, `SupportedChainIdHex` and `ChainParameter` objects with mainnet values. We may want to rename the enums as well.
+
+2. Update the addresses to mainnet
+
+- In `./src/constants/addresses.ts`, update the addresses with mainnet addresses. The mainnet address values can be found on https://developers.circle.com/stablecoin/docs.cctp-protocol-contract.
+
+3. Update the attestation API URL
+
+- In `./src/constants/index.ts`, update `IRIS_ATTESTATION_API_URL` with the mainnet value. The mainnet API url can be found on https://developers.circle.com/stablecoin/docs/cctp-getting-started#attestation-service-api.
 
 ## Setup Typechain
 
