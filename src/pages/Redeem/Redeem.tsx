@@ -25,7 +25,7 @@ function Redeem() {
         // If send tx is incomplete or signature is missing, redirect to Send page
         if (
           transaction.status !== TransactionStatus.COMPLETE ||
-          transaction.signature == null
+          transaction.signatures == null
         ) {
           navigate(
             {
@@ -40,7 +40,7 @@ function Redeem() {
           )
         } else if (
           transaction.status === TransactionStatus.COMPLETE &&
-          transaction.signature != null
+          transaction.signatures != null
         ) {
           // If send tx doesn't have a nextHash, open Redeem confirmation modal
           if (transaction.nextHash == null) {

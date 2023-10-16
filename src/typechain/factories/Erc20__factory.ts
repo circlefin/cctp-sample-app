@@ -227,7 +227,7 @@ const _abi = [
     name: 'Transfer',
     type: 'event',
   },
-]
+] as const
 
 export class Erc20__factory {
   static readonly abi = _abi

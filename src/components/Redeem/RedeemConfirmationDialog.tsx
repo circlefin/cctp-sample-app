@@ -25,6 +25,7 @@ import useMessageTransmitter from 'hooks/useMessageTransmitter'
 
 import type { Web3Provider } from '@ethersproject/providers'
 import type { SxProps } from '@mui/material'
+import type { Chain } from 'constants/chains'
 import type { Transaction } from 'contexts/AppContext'
 
 interface Props {
@@ -42,19 +43,19 @@ const RedeemConfirmation: React.FC<Props> = ({
   transaction,
   sx = {},
 }) => {
-  const { chainId } = useWeb3React<Web3Provider>()
+  // const { chainId } = useWeb3React<Web3Provider>()
   const [isRedeeming, setIsRedeeming] = useState(false)
-  const { receiveMessage } = useMessageTransmitter(chainId)
+  const { receiveMessage } = useMessageTransmitter(transaction.target as Chain)
   const { addTransaction, setTransaction } = useTransactionContext()
 
   const handleRedeem = async () => {
-    const { messageBytes, signature } = transaction
-    if (!messageBytes || !signature) {
-      alert('Missing messageBytes and signature from transaction')
+    const { messageBytes, signatures } = transaction
+    if (!messageBytes || !signatures) {
+      alert('Missing messageBytes and signatures from transaction')
     } else {
       setIsRedeeming(true)
       try {
-        const response = await receiveMessage(messageBytes, signature)
+        const response = await receiveMessage(messageBytes, signatures)
         if (!response) return
 
         const { hash } = response
@@ -84,6 +85,7 @@ const RedeemConfirmation: React.FC<Props> = ({
       } catch (err) {
         console.error(err)
         setIsRedeeming(false)
+        throw err
       }
     }
   }
@@ -104,7 +106,7 @@ const RedeemConfirmation: React.FC<Props> = ({
       <DialogContent>
         <TransactionDetails transaction={transaction} />
 
-        <NetworkAlert className="mt-8" chain={transaction.target} />
+        {/* TODO: Put me back once the network / wallet state is reworked <NetworkAlert className="mt-8" chain={transaction.target} /> */}
       </DialogContent>
 
       <DialogActions className="mt-8">
@@ -115,7 +117,8 @@ const RedeemConfirmation: React.FC<Props> = ({
           size="large"
           loading={isRedeeming}
           disabled={
-            isRedeeming || CHAIN_TO_CHAIN_ID[transaction.target] !== chainId
+            // TODO: FIX ME!
+            isRedeeming /* || CHAIN_TO_CHAIN_ID[transaction.target] !== chainId */
           }
           onClick={async () => await handleRedeem()}
         >

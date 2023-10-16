@@ -17,6 +17,7 @@ import { CHAIN_ICONS } from 'assets/chains'
 import NetworkAlert from 'components/NetworkAlert/NetworkAlert'
 import { Chain, CHAIN_TO_CHAIN_ID, CHAIN_TO_CHAIN_NAME } from 'constants/chains'
 import { DEFAULT_DECIMALS } from 'constants/tokens'
+import { getKeplrFromWindow } from 'cosmos/getKeplrFromWindow'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { getUSDCContractAddress } from 'utils/addresses'
 
@@ -41,9 +42,19 @@ const CHAIN_SELECT_ITEMS: SelectItem[] = [
     icon: CHAIN_ICONS[Chain.AVAX],
   },
   {
+    value: Chain.OP,
+    label: CHAIN_TO_CHAIN_NAME[Chain.OP],
+    icon: CHAIN_ICONS[Chain.OP],
+  },
+  {
     value: Chain.ARB,
     label: CHAIN_TO_CHAIN_NAME[Chain.ARB],
     icon: CHAIN_ICONS[Chain.ARB],
+  },
+  {
+    value: Chain.NOBLE,
+    label: CHAIN_TO_CHAIN_NAME[Chain.NOBLE],
+    icon: CHAIN_ICONS[Chain.NOBLE],
   },
 ]
 
@@ -52,6 +63,7 @@ export const DEFAULT_FORM_INPUTS: TransactionInputs = {
   target: Chain.AVAX,
   address: '',
   amount: '',
+  ibcRecipient: '',
 }
 
 interface Props {
@@ -65,7 +77,7 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
   const USDC_ADDRESS = getUSDCContractAddress(chainId)
 
   const [walletUSDCBalance, setWalletUSDCBalance] = useState(0)
-  const { source, target, address, amount } = formInputs
+  const { source, target, address, amount, ibcRecipient } = formInputs
   const [isFormValid, setIsFormValid] = useState(false)
   const balance = useTokenBalance(USDC_ADDRESS, account ?? '')
 
@@ -75,12 +87,13 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
       target !== '' &&
       source !== target &&
       address !== '' &&
-      address === account &&
       amount !== '' &&
       !isNaN(+amount) &&
       +amount > 0 &&
       +amount <= walletUSDCBalance &&
-      CHAIN_TO_CHAIN_ID[source] === chainId
+      CHAIN_TO_CHAIN_ID[source] === chainId &&
+      // TODO: Clean up the special validation for Noble
+      (target === Chain.NOBLE || address === account)
     setIsFormValid(isValid)
   }, [source, target, address, account, amount, walletUSDCBalance, chainId])
 
@@ -106,6 +119,34 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
       </div>
     </MenuItem>
   )
+
+  // Render the additional options for use with the MessageTransmitterWithMetadata.
+  // Currently only used for Noble.
+  const renderMetadataOptions = (destination: string) => {
+    // Don't render anything if we're not going to noble
+    if (destination !== Chain.NOBLE) {
+      return null
+    }
+
+    return (
+      <FormControl className="mt-12" fullWidth>
+        <TextField
+          id="ibcRecipient"
+          label="IBC Destination Recipient (Optional)"
+          variant="outlined"
+          value={ibcRecipient}
+          // TODO: Add an error checker
+          onChange={(event) =>
+            handleUpdateForm((state) => ({
+              ...state,
+              ibcRecipient: event.target.value,
+            }))
+          }
+          InputLabelProps={{ shrink: true }}
+        />
+      </FormControl>
+    )
+  }
 
   const getAddressHelperText = useMemo(() => {
     if (address !== '' && (!account || !active)) {
@@ -145,10 +186,26 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
     }))
   }
 
-  const handleCopyFromWallet = () => {
+  const handleCopyFromWallet = async () => {
+    // TODO: Have a better sense of, ie, sending wallet and receiving wallet
+    // For now we just hardcode here that we know this is on the receiving side
+    let walletAddress: string
+    if (target === Chain.NOBLE) {
+      const keplr = await getKeplrFromWindow()
+      if (!keplr) {
+        alert('Unable to find keplr')
+        return
+      }
+      // TODO: Stop hardcoding grand-1
+      const signingKey = await keplr.getKey('grand-1')
+      walletAddress = signingKey.bech32Address
+    } else {
+      walletAddress = account ?? ''
+    }
+
     handleUpdateForm((state) => ({
       ...state,
-      address: account ?? '',
+      address: walletAddress,
     }))
   }
 
@@ -207,8 +264,7 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
           label="Destination Address"
           variant="outlined"
           value={address}
-          error={address !== '' && address !== account}
-          helperText={getAddressHelperText}
+          // TODO: Add the error and helper text back
           onChange={(event) =>
             handleUpdateForm((state) => ({
               ...state,
@@ -266,6 +322,8 @@ const SendForm = ({ handleNext, handleUpdateForm, formInputs }: Props) => {
           }}
         />
       </FormControl>
+
+      {renderMetadataOptions(target)}
 
       <Button
         className="mt-12"

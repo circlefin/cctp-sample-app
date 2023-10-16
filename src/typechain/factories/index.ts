@@ -3,4 +3,5 @@
 /* eslint-disable */
 export { MessageTransmitter__factory } from './MessageTransmitter__factory'
 export { TokenMessenger__factory } from './TokenMessenger__factory'
+export { TokenMessengerWithMetadata__factory } from './TokenMessengerWithMetadata__factory'
 export { Erc20__factory } from './Erc20__factory'

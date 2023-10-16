@@ -10,6 +10,21 @@ interface Props {
 }
 
 const TransactionDetails: React.FC<Props> = ({ transaction, className }) => {
+  const renderIBCDestination = () => {
+    if (!transaction?.ibcRecipient) {
+      return null
+    }
+
+    return (
+      <div className="flex items-center border-t border-licorice-500 py-4">
+        <dt className="w-48 text-sm font-normal text-licorice-100">
+          IBC Destination Address
+        </dt>
+        <dd className="text-base font-bold">{transaction?.ibcRecipient}</dd>
+      </div>
+    )
+  }
+
   return (
     <dl className={classNames('border-b border-licorice-500', className)}>
       <div className="flex items-center border-t border-licorice-500 py-4">
@@ -30,10 +45,12 @@ const TransactionDetails: React.FC<Props> = ({ transaction, className }) => {
 
       <div className="flex items-center border-t border-licorice-500 py-4">
         <dt className="w-48 text-sm font-normal text-licorice-100">
-          Destination address
+          Destination Address
         </dt>
         <dd className="text-base font-bold">{transaction?.address}</dd>
       </div>
+
+      {renderIBCDestination()}
 
       <div className="flex items-center border-t border-licorice-500 py-4">
         <dt className="w-48 text-sm font-normal text-licorice-100">Amount</dt>

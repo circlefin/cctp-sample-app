@@ -552,7 +552,7 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-]
+] as const
 
 export class TokenMessenger__factory {
   static readonly abi = _abi

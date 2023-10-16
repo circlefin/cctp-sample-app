@@ -18,7 +18,7 @@ function Transactions() {
     const isComplete =
       (transaction.type === TransactionType.SEND &&
         transaction.status === TransactionStatus.COMPLETE &&
-        transaction.signature != null &&
+        transaction.signatures != null &&
         transaction.nextHash != null) ||
       (transaction.type === TransactionType.REDEEM &&
         transaction.status === TransactionStatus.COMPLETE)
@@ -38,8 +38,8 @@ function Transactions() {
             <p>Target: {transaction.target}</p>
             <p>Address: {transaction.address}</p>
             <p>Amount: {transaction.amount}</p>
-            <p>Message Hash: {transaction.messageHash}</p>
-            <p className="truncate">Signature: {transaction.signature}</p>
+            <p>Message Hashes: {transaction.messageHashes}</p>
+            <p className="truncate">Signatures: {transaction.signatures}</p>
             <p>Next: {transaction.nextHash}</p>
           </div>
 

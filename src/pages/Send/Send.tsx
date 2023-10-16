@@ -26,7 +26,7 @@ function Send() {
       transaction &&
       ((transaction.type === TransactionType.SEND &&
         transaction.status === TransactionStatus.COMPLETE &&
-        transaction.signature != null) ||
+        transaction.signatures != null) ||
         transaction.type === TransactionType.REDEEM)
     ) {
       navigate(

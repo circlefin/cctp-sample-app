@@ -9,13 +9,19 @@ export const getUSDCContractAddress = (chainId?: SupportedChainId): string => {
   return testnet.CHAIN_IDS_TO_USDC_ADDRESSES[chainId]
 }
 
+// TODO: Clean this up
 export const getTokenMessengerContractAddress = (
+  useWithMetadata: boolean,
   chainId?: SupportedChainId
 ): string => {
   if (chainId == null) {
     return ''
   }
-  return testnet.CHAIN_IDS_TO_TOKEN_MESSENGER_ADDRESSES[chainId]
+  return (
+    useWithMetadata
+      ? testnet.CHAIN_IDS_TO_TOKEN_MESSENGER_WITH_METADATA_ADDRESSES
+      : testnet.CHAIN_IDS_TO_TOKEN_MESSENGER_ADDRESSES
+  )[chainId]
 }
 
 export const getMessageTransmitterContractAddress = (

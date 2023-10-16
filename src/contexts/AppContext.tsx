@@ -18,6 +18,8 @@ export interface TransactionInputs {
   target: string
   address: string
   amount: string
+  // Optional as they're only used (right now) for transactions to Noble.
+  ibcRecipient?: string
 }
 
 export interface Transaction extends TransactionInputs {
@@ -25,11 +27,14 @@ export interface Transaction extends TransactionInputs {
   hash: string
   type: TransactionType
   status: TransactionStatus
+  // The following messageBytes, messageHashes, and signatures are for signing all
+  // of the messages that may be emitted by a given transaction.  They're understood
+  // to be kept in the same order.
   // above will be after `depositForBurn` but before `transactionReceipt`. will need to display all of these
-  messageBytes?: Bytes
-  messageHash?: string
+  messageBytes?: Bytes[]
+  messageHashes?: string[]
   // above will be after `transactionReceipt` but before attestation
-  signature?: string
+  signatures?: string[]
   // above will be after attestation but before redeem flow (Only for Send transaction)
   nextHash?: string
   // above will be after redeem tx is submitted (Only for Send transaction)

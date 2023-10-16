@@ -1,4 +1,5 @@
-import { defaultAbiCoder, id, keccak256 } from 'ethers/lib/utils'
+import { fromBech32 } from '@cosmjs/encoding'
+import { defaultAbiCoder, hexZeroPad, id, keccak256 } from 'ethers/lib/utils'
 
 import type { BigNumber } from '@ethersproject/bignumber'
 import type { Log } from '@ethersproject/providers'
@@ -34,25 +35,39 @@ export function addressToBytes32(address: string) {
 }
 
 /**
- * Returns message bytes from decoding the event logs
+ * Decode a Noble address into bytes32 hex strings
+ */
+export function nobleAddressToBytes32(address: string) {
+  const { prefix, data } = fromBech32(address)
+  return {
+    // Convenience for human readable and later lookup
+    prefixUnencoded: prefix,
+    prefix: hexZeroPad(new TextEncoder().encode(prefix), 32),
+    data: hexZeroPad(data, 32),
+  }
+}
+
+/**
+ * Returns all matching messages as bytes for a given topic in some logs.
  * @param logs the event logs of a transaction
  * @param topic the topic to be filter from the log
  */
 export function getMessageBytesFromEventLogs(
   logs: Log[],
   topic: string
-): Bytes {
+): Bytes[] {
   const eventTopic = id(topic)
-  const log = logs.filter((l) => l.topics[0] === eventTopic)[0]
-  return defaultAbiCoder.decode(['bytes'], log.data)[0] as Bytes
+  return logs
+    .filter((l) => l.topics[0] === eventTopic)
+    .map((l) => defaultAbiCoder.decode(['bytes'], l.data)[0] as Bytes)
 }
 
 /**
  * Returns message hash from the message bytes
  * @param message the message bytes
  */
-export function getMessageHashFromBytes(message: Bytes): string {
-  return keccak256(message)
+export function getMessageHashesFromBytes(messages: Bytes[]): string[] {
+  return messages.map(keccak256)
 }
 
 /**

@@ -54,16 +54,19 @@ const SendConfirmationDialog: React.FC<Props> = ({
   sx = {},
 }) => {
   const { account, active, chainId } = useWeb3React<Web3Provider>()
-  const { target, address, amount } = formInputs
+  const { target, address, amount, ibcRecipient } = formInputs
   const [isAllowanceSufficient, setIsAllowanceSufficient] = useState(false)
   const [isApproving, setIsApproving] = useState(false)
   const [isSending, setIsSending] = useState(false)
 
   const USDC_ADDRESS = getUSDCContractAddress(chainId)
-  const TOKEN_MESSENGER_ADDRESS = getTokenMessengerContractAddress(chainId)
+  const TOKEN_MESSENGER_ADDRESS = getTokenMessengerContractAddress(
+    !!ibcRecipient,
+    chainId
+  )
 
   const { approve } = useTokenApproval(USDC_ADDRESS, TOKEN_MESSENGER_ADDRESS)
-  const { depositForBurn } = useTokenMessenger(chainId)
+  const { depositForBurn } = useTokenMessenger(!!ibcRecipient, chainId)
   const allowance = useTokenAllowance(
     USDC_ADDRESS,
     account ?? '',
@@ -121,7 +124,8 @@ const SendConfirmationDialog: React.FC<Props> = ({
         amountToSend,
         DestinationDomain[target as Chain],
         address,
-        USDC_ADDRESS
+        USDC_ADDRESS,
+        ibcRecipient
       )
       if (!response) return
 
