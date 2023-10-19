@@ -1,36 +1,21 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material'
 
-import IconMetaMask from 'assets/icon-metamask.png'
-import ConnectWalletDialogButton from 'components/ConnectWallet/ConnectWalletDialogButton'
-import { injected } from 'components/Wallet/Connectors'
-
-import type { SxProps } from '@mui/material'
-import type { AbstractConnector } from '@web3-react/abstract-connector'
+import ConnectMetaMask from 'components/ConnectWallet/ConnectWalletContentCard/ConnectMetaMask'
+import ConnectPhantom from 'components/ConnectWallet/ConnectWalletContentCard/ConnectPhantom'
 
 interface Props {
   handleClose: () => void
-  handleConnect: (connector: AbstractConnector) => void
   open: boolean
-  sx?: SxProps
 }
 
-const ConnectWalletDialog: React.FC<Props> = ({
-  handleClose,
-  handleConnect,
-  open,
-  sx = {},
-}) => {
+const ConnectWalletDialog: React.FC<Props> = ({ handleClose, open }) => {
   return (
     <Dialog fullWidth={true} onClose={handleClose} open={open}>
       <DialogTitle>Connect wallet</DialogTitle>
       <DialogContent>
-        <ConnectWalletDialogButton
-          onClick={() => handleConnect(injected)}
-          subtitle="Connect using MetaMask"
-          title="MetaMask"
-          imgSrc={IconMetaMask}
-        />
+        <ConnectMetaMask />
+        <ConnectPhantom className="mt-8" />
       </DialogContent>
 
       <IconButton className="absolute right-3 top-3" onClick={handleClose}>

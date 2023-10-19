@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { useWeb3React } from '@web3-react/core'
 
-import { injected } from 'components/Wallet/Connectors'
+import { metaMask } from 'components/Wallet/Connectors'
 
 import type { Web3Provider } from '@ethersproject/providers'
 
@@ -12,9 +12,9 @@ export function useEagerConnect() {
 
   useEffect(() => {
     const initWallet = async () => {
-      const isAuthorized = await injected.isAuthorized()
+      const isAuthorized = await metaMask.isAuthorized()
       if (isAuthorized) {
-        await activate(injected)
+        await activate(metaMask)
       }
     }
     void initWallet()
