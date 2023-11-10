@@ -4,7 +4,7 @@ on:
 jobs:
   test:
     name: 'Test'
-    runs-on: circle-small
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
