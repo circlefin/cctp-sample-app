@@ -11,9 +11,9 @@ export enum Chain {
  * List of all the chain/network IDs supported
  */
 export enum SupportedChainId {
-  ETH_GOERLI = 5,
+  ETH_SEPOLIA = 11155111,
   AVAX_FUJI = 43113,
-  ARB_GOERLI = 421613,
+  ARB_SEPOLIA = 421614,
 }
 
 /**
@@ -21,9 +21,9 @@ export enum SupportedChainId {
  * TODO: Infer from SupportedChainId
  */
 export const SupportedChainIdHex = {
-  ETH_GOERLI: '0x5',
+  ETH_SEPOLIA: '0xaa36a7',
   AVAX_FUJI: '0xa869',
-  ARB_GOERLI: '0x66eed',
+  ARB_SEPOLIA: '0x66eee',
 }
 
 interface ChainToChainIdMap {
@@ -35,9 +35,9 @@ interface ChainToChainIdMap {
  */
 
 export const CHAIN_TO_CHAIN_ID: ChainToChainIdMap = {
-  [Chain.ETH]: SupportedChainId.ETH_GOERLI,
+  [Chain.ETH]: SupportedChainId.ETH_SEPOLIA,
   [Chain.AVAX]: SupportedChainId.AVAX_FUJI,
-  [Chain.ARB]: SupportedChainId.ARB_GOERLI,
+  [Chain.ARB]: SupportedChainId.ARB_SEPOLIA,
 }
 
 interface ChainToChainNameMap {
@@ -83,20 +83,20 @@ interface AddEthereumChainParameter {
   rpcUrls?: string[]
 }
 
-const ETH_GOERLI: AddEthereumChainParameter = {
-  chainId: '0x5',
-  blockExplorerUrls: ['https://goerli.etherscan.io'],
-  chainName: 'Goerli Test Network',
+const ETH_SEPOLIA: AddEthereumChainParameter = {
+  chainId: SupportedChainIdHex.ETH_SEPOLIA,
+  blockExplorerUrls: ['https://sepolia.etherscan.io'],
+  chainName: 'Sepolia Test Network',
   nativeCurrency: {
-    name: 'Goerli ETH',
-    symbol: 'gorETH',
+    name: 'Ethereum',
+    symbol: 'ETH',
     decimals: 18,
   },
-  rpcUrls: ['https://goerli.infura.io/v3/'],
+  rpcUrls: ['https://sepolia.infura.io/v3/'],
 }
 
 const AVAX_FUJI: AddEthereumChainParameter = {
-  chainId: '0xa869',
+  chainId: SupportedChainIdHex.AVAX_FUJI,
   blockExplorerUrls: ['https://testnet.snowtrace.io/'],
   chainName: 'Avalanche FUJI C-Chain',
   nativeCurrency: {
@@ -107,16 +107,16 @@ const AVAX_FUJI: AddEthereumChainParameter = {
   rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'],
 }
 
-const ARB_GOERLI: AddEthereumChainParameter = {
-  chainId: SupportedChainIdHex.ARB_GOERLI,
-  blockExplorerUrls: ['https://goerli.arbiscan.io/'],
-  chainName: 'Arbitrum Goerli Testnet',
+const ARB_SEPOLIA: AddEthereumChainParameter = {
+  chainId: SupportedChainIdHex.ARB_SEPOLIA,
+  blockExplorerUrls: ['https://sepolia.arbiscan.io/'],
+  chainName: 'Arbitrum Sepolia Testnet',
   nativeCurrency: {
     name: 'Ethereum',
     symbol: 'ETH',
     decimals: 18,
   },
-  rpcUrls: ['https://arb-goerli.g.alchemy.com/v2/demo'],
+  rpcUrls: ['https://arb-sepolia.g.alchemy.com/v2/demo'],
 }
 
 interface ChainIdToChainParameters {
@@ -124,7 +124,7 @@ interface ChainIdToChainParameters {
 }
 
 export const CHAIN_ID_HEXES_TO_PARAMETERS: ChainIdToChainParameters = {
-  [SupportedChainIdHex.ETH_GOERLI]: ETH_GOERLI,
+  [SupportedChainIdHex.ETH_SEPOLIA]: ETH_SEPOLIA,
   [SupportedChainIdHex.AVAX_FUJI]: AVAX_FUJI,
-  [SupportedChainIdHex.ARB_GOERLI]: ARB_GOERLI,
+  [SupportedChainIdHex.ARB_SEPOLIA]: ARB_SEPOLIA,
 }

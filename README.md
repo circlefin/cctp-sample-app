@@ -1,6 +1,6 @@
 # CCTP Sample App
 
-A sample app used to demonstrate CCTP step by step capabilities on testnet. The app currently supports Ethereum Goerli, Avalanche Fuji C-Chain, and Arbitrum Goerli testnets.
+A sample app used to demonstrate CCTP step by step capabilities on testnet. The app currently supports Ethereum Sepolia, Avalanche Fuji C-Chain, and Arbitrum Sepolia testnets.
 
 ![](./docs/screenshot.png)
 
