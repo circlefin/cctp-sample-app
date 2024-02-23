@@ -113,7 +113,7 @@ This sample app is development for testnet use, but if we want to update this fo
 
 2. Update the addresses to mainnet
 
-- In `./src/constants/addresses.ts`, update the addresses with mainnet addresses. The mainnet address values can be found on https://developers.circle.com/stablecoin/docs.cctp-protocol-contract.
+- In `./src/constants/addresses.ts`, update the addresses with mainnet addresses. The mainnet address values can be found on https://developers.circle.com/stablecoin/docs/cctp-protocol-contract.
 
 3. Update the attestation API URL
 
