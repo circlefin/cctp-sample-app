@@ -19,6 +19,13 @@ brew install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 
+Add nvm to your shell profile
+```
+source $(brew --prefix nvm)/nvm.sh
+# Or source it manually
+source ~/.bashrc
+```
+
 Use the correct node version (version found in .nvmrc)
 
 ```
