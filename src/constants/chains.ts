@@ -5,6 +5,7 @@ export enum Chain {
   ETH = 'ETH',
   AVAX = 'AVAX',
   ARB = 'ARB',
+  BASE = 'BASE',
 }
 
 /**
@@ -14,6 +15,7 @@ export enum SupportedChainId {
   ETH_SEPOLIA = 11155111,
   AVAX_FUJI = 43113,
   ARB_SEPOLIA = 421614,
+  BASE_SEPOLIA = 84532,
 }
 
 /**
@@ -24,6 +26,7 @@ export const SupportedChainIdHex = {
   ETH_SEPOLIA: '0xaa36a7',
   AVAX_FUJI: '0xa869',
   ARB_SEPOLIA: '0x66eee',
+  BASE_SEPOLIA: '0x14a34',
 }
 
 interface ChainToChainIdMap {
@@ -38,6 +41,7 @@ export const CHAIN_TO_CHAIN_ID: ChainToChainIdMap = {
   [Chain.ETH]: SupportedChainId.ETH_SEPOLIA,
   [Chain.AVAX]: SupportedChainId.AVAX_FUJI,
   [Chain.ARB]: SupportedChainId.ARB_SEPOLIA,
+  [Chain.BASE]: SupportedChainId.BASE_SEPOLIA,
 }
 
 interface ChainToChainNameMap {
@@ -51,6 +55,7 @@ export const CHAIN_TO_CHAIN_NAME: ChainToChainNameMap = {
   ETH: 'Ethereum',
   AVAX: 'Avalanche',
   ARB: 'Arbitrum',
+  BASE: 'Base',
 }
 
 /**
@@ -67,6 +72,7 @@ export enum DestinationDomain {
   ETH = 0,
   AVAX = 1,
   ARB = 3,
+  BASE = 6,
 }
 
 // https://eips.ethereum.org/EIPS/eip-3085
@@ -119,6 +125,18 @@ const ARB_SEPOLIA: AddEthereumChainParameter = {
   rpcUrls: ['https://arb-sepolia.g.alchemy.com/v2/demo'],
 }
 
+const BASE_SEPOLIA: AddEthereumChainParameter = {
+  chainId: SupportedChainIdHex.BASE_SEPOLIA,
+  blockExplorerUrls: ['https://sepolia.basescan.org/'],
+  chainName: 'Base Sepolia Testnet',
+  nativeCurrency: {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    decimals: 18,
+  },
+  rpcUrls: ['https://sepolia.base.org'],
+}
+
 interface ChainIdToChainParameters {
   [key: string]: AddEthereumChainParameter
 }
@@ -127,4 +145,5 @@ export const CHAIN_ID_HEXES_TO_PARAMETERS: ChainIdToChainParameters = {
   [SupportedChainIdHex.ETH_SEPOLIA]: ETH_SEPOLIA,
   [SupportedChainIdHex.AVAX_FUJI]: AVAX_FUJI,
   [SupportedChainIdHex.ARB_SEPOLIA]: ARB_SEPOLIA,
+  [SupportedChainIdHex.BASE_SEPOLIA]: BASE_SEPOLIA,
 }
